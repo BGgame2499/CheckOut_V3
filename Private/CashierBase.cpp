@@ -58,13 +58,13 @@ void ACashierBase::BeginPlay()
 	Super::BeginPlay();
 
 	TArray<FString> AllTxtFile = GetTxtFileOnPath("Content", ReadTxtFileName);
-	GetTxtStringToObjectID(AllTxtFile, "", "", "", OnlyReadType);
+	GetTxtStringToObjectID(AllTxtFile, "", "", "", OnlyReadType);	//读取列表并初始化各项ObjectInformation
 
 	LastRandomNum = -1;
 	QueueNum = 0;
 
 	UCheckOutInstance * GameInst = Cast<UCheckOutInstance>(GetGameInstance());
-	if (GameInst){CreateTimes = GameInst->SaveGames->CreateTimes;}
+	if (GameInst){CreateTimes = GameInst->SaveGames->CreateTimes;}	//读取保存的CreateTimes数量
 	if (isClearCreateTimes) { ReloadCreateTimes(); }
 	if (isLoadAllMesh){LoopLoadAllMesh();}
 
@@ -411,7 +411,7 @@ void ACashierBase::CashierReloat()
 	ClearAllSpawnObjectCompArray();
 	CreateTimes++;
 }
-ObjectType ACashierBase::ChooseObjectType(int32 Index)
+ObjectType ACashierBase::ChooseObjectType(int32 Index)	//根据读取的表格来返回Obj的类型
 {
 	ObjectType CurrentType;
 	switch (Index)

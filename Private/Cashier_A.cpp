@@ -21,7 +21,7 @@ void ACashier_A::BeginPlay()
 
 	GEngine->AddOnScreenDebugMessage(-1, 6, FColor::Red, this->GetName());
 }
-void ACashier_A::OnConstruction(const FTransform & Transform)	//
+void ACashier_A::OnConstruction(const FTransform & Transform)	//在调整Comp时为其绘制射线
 {
 	Super::OnConstruction(Transform);
 
@@ -52,7 +52,7 @@ void ACashier_A::Tick(float DeltaTime)
 		for (int i = 0; i < WillCreateNum; i++)
 		{
 			CurrentObjectMaskNum++;
-
+			//得到将要创建Obj的ID信息
 			FStructObjectID CurrentObjID = GetStringIDArrayRandomToStructObjectID(isQueue, CurrentObjectUEIDArray, CurrentObjectClassIDArray,
 				CurrentObjectUEIDArray, CurrentObjectTypeArray, CurrentObjectMaskNum, true, SameProbability);
 
@@ -89,11 +89,9 @@ void ACashier_A::DelayCreateObject_Implementation()
 		GetWorldTimerManager().ClearTimer(TimeHand_DelayCreateObject);
 		GetWorldTimerManager().ClearTimer(TimeHand_ClearAllSpawnObjCompArray);
 
-		//if (!isClearCreateTimes) 
-		{
-			ExportEvent();
-			WillCreateObjectIDArray.Empty();
-		}
+		ExportEvent();
+		WillCreateObjectIDArray.Empty();
+		
 	}
 
 
@@ -174,7 +172,7 @@ void ACashier_A::ExportEvent_Implementation()
 }
 void ACashier_A::BeginExportEvent_Implementation()
 {
-	for (int index = 0; index < SaveObjectArray.Num(); index++)
+	for (int index = 0; index < SaveObjectArray.Num(); index++)	//如果创建的Obj为需要特殊识别类则调用其射线检测事件
 	{
 		SaveObjectArray[index]->SetObjPhysical(false);
 		ASpecialObject * CurrentSpecialObject = Cast<ASpecialObject>(SaveObjectArray[index]);
@@ -185,6 +183,7 @@ void ACashier_A::BeginExportEvent_Implementation()
 	}
 	if (isExport)
 	{
+		//保存CID信息到本地
 		SaveStringArrayToFile(GetObjectArrayCIDtoStrArray(SaveObjectArray), "Content/Export/json_labels/total");
 
 		ExportImageEvent();
@@ -211,18 +210,20 @@ void ACashier_A::BeginExportEvent_Implementation()
 void ACashier_A::EndExportEvent_Implementation()
 {
 }
-void ACashier_A::LoopLoadAllMesh()
+void ACashier_A::LoopLoadAllMesh()	//快速加载所有Obj
 {
+	//顺序得到全部列表内容
 	WillCreateObjectIDArray = GetStringIDArrayQueueToStructObjectID(CurrentObjectUEIDArray, CurrentObjectClassIDArray, CurrentObjectUEIDArray, CurrentObjectTypeArray, CurrentObjectMaskNum);
 	WillCreateNum = WillCreateObjectIDArray.Num();
 
+	//快速创建并删除
 	GetWorldTimerManager().SetTimer(TimeHand_DelayCreateObject, this, &ACashier_A::DelayCreateObject, 0.1, true);
 	GetWorldTimerManager().SetTimer(TimeHand_ClearAllSpawnObjCompArray, this, &ACashier_A::ClearAllSpawnObjectCompArray, 0.2, true);
 }
 
 
 
-void ACashier_A::CashierReloat()
+void ACashier_A::CashierReloat()	//重载Cashier各项参数
 {
 	CurrentObjectMaskNum = 1;
 	SaveObjectArray.Empty();
