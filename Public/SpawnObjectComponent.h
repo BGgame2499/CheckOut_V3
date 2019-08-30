@@ -40,7 +40,7 @@ public:
 protected:
 
 	UPROPERTY(BlueprintReadWrite)
-		FTransform CreateObjectTransform;
+		FTransform CreateObjectTransform;	//创建的Obj初始位置
 
 	int32 MaxRandomNum;
 protected:

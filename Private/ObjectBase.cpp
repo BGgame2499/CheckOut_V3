@@ -137,9 +137,9 @@ void AObjectBase::SetAndCountCustomDepth(int32 DepthNum)
 	if (ObjectMesh->GetStaticMesh())
 	{
 		
-		int32 nawDepthNum = DepthNum + (ObjectIDStruct.MaskID * DepthNum / 3);
+		//int32 nawDepthNum = DepthNum + (ObjectIDStruct.MaskID * DepthNum / 3);
 		ObjectMesh->SetRenderCustomDepth(true);
-		ObjectMesh->SetCustomDepthStencilValue(ObjectIDStruct.MaskID);
+		ObjectMesh->SetCustomDepthStencilValue(ObjectIDStruct.MaskID);	//根据ID信息设置Mes深度
 	}
 
 }
@@ -173,7 +173,7 @@ void AObjectBase::SetObjPhysical(bool is)
 void AObjectBase::BeginPlay()
 {
 	Super::BeginPlay();
-	LoadNewMeahWithMaterialToObjectMesh();
+	LoadNewMeahWithMaterialToObjectMesh();	
 }
 
 void AObjectBase::Tick(float DeltaTime)

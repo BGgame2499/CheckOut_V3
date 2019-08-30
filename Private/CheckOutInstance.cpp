@@ -7,8 +7,7 @@
 
 void UCheckOutInstance::Init()
 {
-	
-	SaveGames = Cast<UCheckOutSave>(UGameplayStatics::LoadGameFromSlot("CheckOut", 0));
+	SaveGames = Cast<UCheckOutSave>(UGameplayStatics::LoadGameFromSlot("CheckOut", 0));	//加载存档 如果加载失败则创建新的SaveGame
 	if (!SaveGames)
 	{
 		SaveGames = Cast<UCheckOutSave>(UGameplayStatics::CreateSaveGameObject(UCheckOutSave::StaticClass()));

@@ -13,11 +13,11 @@ class CHECKOUT_V3_API UCheckOutInstance : public UGameInstance
 	GENERATED_BODY()
 public:
 
-		virtual void Init();
+	virtual void Init();
 
-		UFUNCTION(BlueprintCallable)
-			bool SaveCheckOut();
+	UFUNCTION(BlueprintCallable)
+		bool SaveCheckOut();
 
-		UPROPERTY(BlueprintReadWrite)
-			UCheckOutSave * SaveGames;
+	UPROPERTY(BlueprintReadWrite)
+		UCheckOutSave * SaveGames;
 };

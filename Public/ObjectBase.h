@@ -24,11 +24,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Comp")
 		UStaticMeshComponent* ObjectMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn), Category = "StrObjID")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn), Category = "StrObjID")	//Obj信息ID
 		FStructObjectID ObjectIDStruct;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Var")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Var")	//Mesh大小测量
 		FVector minSpanVector;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Var")
 		FVector maxSpanVector;
@@ -42,7 +42,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Var")
 		FVector MeshBoundVector;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MaterialRandom")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MaterialRandom")	//随机材质变化（效果暂时有问题）
 		bool isRandomMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MaterialRandom")
 		float MaxRandomRoughness;
@@ -56,13 +56,13 @@ public:
 
 public:
 	UFUNCTION(BlueprintCallable)
-		bool LoadNewMeahWithMaterialToObjectMesh(FString InMeshPath = "SKU/MeshData/", FString InMatPath = "SKU/MatData/");
+		bool LoadNewMeahWithMaterialToObjectMesh(FString InMeshPath = "SKU/MeshData/", FString InMatPath = "SKU/MatData/");	//加载模型和材质
 	UFUNCTION(BlueprintCallable)
 		bool LoadNewMeahToObjectMesh(FString InMeshPath = "SKU/MeshData/");
 	UFUNCTION(BlueprintCallable)
-		TArray<FString> GetMatPathList(FString MatPath, FString Format);
+		TArray<FString> GetMatPathList(FString MatPath, FString Format);	//查找材质路径
 	UFUNCTION(BlueprintCallable)
-		static FString GetMeshPathNameByClassID(FString MeshBasePath, TArray<FString> MeshNameList, int32 classID);
+		static FString GetMeshPathNameByClassID(FString MeshBasePath, TArray<FString> MeshNameList, int32 classID);	//查找模型路径
 
 	UFUNCTION(BlueprintCallable)
 		void SetAndCountCustomDepth(int32 DepthNum = 60);
